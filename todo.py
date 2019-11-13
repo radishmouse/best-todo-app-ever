@@ -12,7 +12,10 @@ def add_todo(todos, item):
     todos.append(item)
 
 def delete_todo(todos, index):
-    del todos[index]
+    try:
+        del todos[index]
+    except IndexError:
+        print("That todo does not exist.")
 
 def print_menu():
     message = """
