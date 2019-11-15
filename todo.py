@@ -3,17 +3,28 @@ def print_todos(todos):
     if len(todos) == 0:
         print("You have nothing to do.")
     else:
-        i = 0
-        for todo in todos:
-            print(f"{i}: {todo}")
-            i += 1
+        print('======= Pending ======')
+        for i, todo in enumerate(todos):
+            if not todo['completed']:
+                print(f"{i}: {todo['title']}")
+        print('======================')
+        print('======= Completed ======')
+        for i, todo in enumerate(todos):
+            if todo['completed']:
+                print(f"{i}: {todo['title']}")
+        print('======================')
 
-def add_todo(todos, item):
-    todos.append(item)
+def add_todo(todos, item_text):
+    new_todo = {
+        'title': item_text,
+        'completed': False
+    }
+    todos.append(new_todo)
 
-def delete_todo(todos, index):
+def set_completed(todos, index):
     try:
-        del todos[index]
+        todo = todos[index]
+        todo['completed'] = True
     except IndexError:
         print("That todo does not exist.")
 
@@ -57,7 +68,7 @@ def main():
             add_todo(todo_list, new_todo)
         elif choice == 3:            
             index_to_delete = get_choice("Enter the index to complete: ")
-            delete_todo(todo_list, index_to_delete)
+            set_completed(todo_list, index_to_delete)
         
 
 main()
